@@ -1,0 +1,272 @@
+{
+  "research_framing": "A multi-layer, explainable and adaptive file-spoofing detection framework that combines binary-content analysis, structural validation, machine learning, adversarial robustness, and privacy-preserving federated learning.",
+  "dataset_info": {
+    "total_samples": 106,
+    "train_samples": 84,
+    "test_samples": 22,
+    "num_features": 42
+  },
+  "feature_dimension_comparison": {
+    "original_28_dim_paper_features": {
+      "num_features": 28,
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "roc_auc": 1.0
+    },
+    "new_42_dim_multi_layer_features": {
+      "num_features": 42,
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "roc_auc": 1.0
+    },
+    "f1_improvement": 0.0
+  },
+  "centralized_models": {
+    "LogisticRegression": {
+      "accuracy": 0.7727,
+      "precision": 0.9091,
+      "recall": 0.7143,
+      "f1_score": 0.8,
+      "roc_auc": 0.8929,
+      "fpr": 0.125,
+      "fnr": 0.2857
+    },
+    "RandomForest": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "roc_auc": 1.0,
+      "fpr": 0.0,
+      "fnr": 0.0
+    },
+    "XGBoost": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "roc_auc": 1.0,
+      "fpr": 0.0,
+      "fnr": 0.0
+    },
+    "NeuralNetwork": {
+      "accuracy": 0.6364,
+      "precision": 0.6364,
+      "recall": 1.0,
+      "f1_score": 0.7778,
+      "roc_auc": 0.5,
+      "fpr": 1.0,
+      "fnr": 0.0
+    },
+    "best_model": "RandomForest"
+  },
+  "federated_learning": {
+    "fedavg": {
+      "strategy": "FedAvg",
+      "num_clients": 3,
+      "num_rounds": 5,
+      "privacy_enabled": true,
+      "final_accuracy": 0.8095,
+      "round_history": [
+        {
+          "round": 1,
+          "accuracy": 0.8571,
+          "loss": 11.5809,
+          "communication_cost_bytes": 2016
+        },
+        {
+          "round": 2,
+          "accuracy": 0.8571,
+          "loss": 11.6565,
+          "communication_cost_bytes": 2016
+        },
+        {
+          "round": 3,
+          "accuracy": 0.8095,
+          "loss": 5.1264,
+          "communication_cost_bytes": 2016
+        },
+        {
+          "round": 4,
+          "accuracy": 0.8095,
+          "loss": 1.9471,
+          "communication_cost_bytes": 2016
+        },
+        {
+          "round": 5,
+          "accuracy": 0.8095,
+          "loss": 3.9739,
+          "communication_cost_bytes": 2016
+        }
+      ]
+    },
+    "fedprox": {
+      "strategy": "FedProx",
+      "num_clients": 3,
+      "num_rounds": 5,
+      "privacy_enabled": true,
+      "final_accuracy": 0.8095,
+      "round_history": [
+        {
+          "round": 1,
+          "accuracy": 0.8571,
+          "loss": 11.5942,
+          "communication_cost_bytes": 2016
+        },
+        {
+          "round": 2,
+          "accuracy": 0.8095,
+          "loss": 11.7085,
+          "communication_cost_bytes": 2016
+        },
+        {
+          "round": 3,
+          "accuracy": 0.5238,
+          "loss": 32.0985,
+          "communication_cost_bytes": 2016
+        },
+        {
+          "round": 4,
+          "accuracy": 0.8095,
+          "loss": 3.1753,
+          "communication_cost_bytes": 2016
+        },
+        {
+          "round": 5,
+          "accuracy": 0.8095,
+          "loss": 11.7565,
+          "communication_cost_bytes": 2016
+        }
+      ]
+    }
+  },
+  "adversarial_robustness": {
+    "robustness_score_pct": 100.0,
+    "total_adversarial_samples": 5,
+    "detected_adversarial_samples": 5,
+    "test_cases": [
+      {
+        "filename": "invoice_malicious.pdf",
+        "attack_type": "extension_spoofing",
+        "declared_ext": ".pdf",
+        "detected_type": "PE_EXE",
+        "risk_score": 86.0,
+        "category": "CRITICAL",
+        "decision": "BLOCK",
+        "correctly_flagged": true,
+        "reasons": [
+          "\u2717 CRITICAL MISMATCH: File claims to be .PDF but content is executable (application/x-msdownload)"
+        ]
+      },
+      {
+        "filename": "report_prepended.pdf",
+        "attack_type": "fake_header_prepended",
+        "declared_ext": ".pdf",
+        "detected_type": "PDF",
+        "risk_score": 40.2,
+        "category": "MEDIUM",
+        "decision": "REVIEW",
+        "correctly_flagged": true,
+        "reasons": [
+          "\u2713 Declared extension (.pdf) matches magic bytes and MIME structure"
+        ]
+      },
+      {
+        "filename": "document_embedded_payload.docx",
+        "attack_type": "embedded_executable_archive",
+        "declared_ext": ".docx",
+        "detected_type": "ZIP",
+        "risk_score": 33.2,
+        "category": "MEDIUM",
+        "decision": "REVIEW",
+        "correctly_flagged": true,
+        "reasons": [
+          "\u2713 Declared extension (.docx) matches magic bytes and MIME structure"
+        ]
+      },
+      {
+        "filename": "photo_tampered.png",
+        "attack_type": "corrupted_magic_body_payload",
+        "declared_ext": ".png",
+        "detected_type": "PNG",
+        "risk_score": 33.9,
+        "category": "MEDIUM",
+        "decision": "REVIEW",
+        "correctly_flagged": true,
+        "reasons": [
+          "\u2713 Declared extension (.png) matches magic bytes and MIME structure"
+        ]
+      },
+      {
+        "filename": "unknown_file.xyz",
+        "attack_type": "unknown_extension_spoof",
+        "declared_ext": ".xyz",
+        "detected_type": "PDF",
+        "risk_score": 35.4,
+        "category": "MEDIUM",
+        "decision": "REVIEW",
+        "correctly_flagged": true,
+        "reasons": [
+          "\u2713 Declared extension (.xyz) matches magic bytes and MIME structure"
+        ]
+      },
+      {
+        "filename": "legitimate_document.pdf",
+        "attack_type": "none_benign",
+        "declared_ext": ".pdf",
+        "detected_type": "PDF",
+        "risk_score": 4.2,
+        "category": "LOW",
+        "decision": "ALLOW",
+        "correctly_flagged": true,
+        "reasons": [
+          "\u2713 Declared extension (.pdf) matches magic bytes and MIME structure"
+        ]
+      }
+    ]
+  },
+  "ablation_study": {
+    "Step_A_Header_Only": {
+      "num_features_used": 4,
+      "accuracy": 0.3636,
+      "f1_score": 0.0,
+      "roc_auc": 0.5
+    },
+    "Step_B_Header_Footer": {
+      "num_features_used": 8,
+      "accuracy": 0.8182,
+      "f1_score": 0.8333,
+      "roc_auc": 0.8929
+    },
+    "Step_C_Header_Footer_Entropy": {
+      "num_features_used": 16,
+      "accuracy": 0.9091,
+      "f1_score": 0.9231,
+      "roc_auc": 0.9554
+    },
+    "Step_D_Add_MIME": {
+      "num_features_used": 17,
+      "accuracy": 0.9545,
+      "f1_score": 0.963,
+      "roc_auc": 1.0
+    },
+    "Step_E_Add_Byte_Stats": {
+      "num_features_used": 38,
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "roc_auc": 1.0
+    },
+    "Step_F_Add_Structure": {
+      "num_features_used": 40,
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "roc_auc": 1.0
+    },
+    "Step_G_Full_Model": {
+      "num_features_used": 42,
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "roc_auc": 1.0
+    }
+  }
+}

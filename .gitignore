@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Databases and Runtime Data
+browser_shield_x/data/*.db
+data/*.db
+*.sqlite
+*.sqlite3
+
+# Runtime download tests and quarantined files (keep directories via .gitkeep)
+test_downloads/*
+!test_downloads/.gitkeep
+quarantine_vault/*
+!quarantine_vault/.gitkeep
+data/*
+!data/.gitkeep
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
